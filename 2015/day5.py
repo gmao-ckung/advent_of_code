@@ -1,4 +1,4 @@
-f1 = open("/home/ckung/Code/Advent_Of_Code/2015/input.day5")
+f1 = open("/home/ckung/Code/advent_of_code/2015/input.day5")
 
 test_strings = f1.readlines()
 

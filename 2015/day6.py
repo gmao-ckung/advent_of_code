@@ -1,6 +1,6 @@
 import numpy as np
 
-f1 = open("/home/ckung/Code/Advent_Of_Code/2015/input.day6")
+f1 = open("/home/ckung/Code/advent_of_code/2015/input.day6")
 
 directions = f1.readlines()
 

@@ -1,6 +1,6 @@
 # This solution uses a Python dictionary label to check whether a coordinate has been visited
 
-f1 = open("/home/ckung/Code/Advent_Of_Code/2015/input.day3")
+f1 = open("/home/ckung/Code/advent_of_code/2015/input.day3")
 
 directions = f1.readline()
 directions = directions.replace("\n","")
