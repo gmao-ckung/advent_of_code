@@ -43,7 +43,7 @@ for i in range(len(lowRange)):
 
     # *** Part 2 ***
     # This checks whether only ONE of the indicated spots contains
-    # the ltter
+    # the letter
     part2check = (passwd[i][int(lowRange[i])-1]  == letter[i]) ^ \
                  (passwd[i][int(highRange[i])-1] == letter[i])
     if part2check:
