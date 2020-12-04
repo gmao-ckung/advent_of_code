@@ -1,10 +1,15 @@
-import string
+import string # string has a hexidecimal compare type
 f1 = open("/home/ckung/Code/advent_of_code/2020/input.day4")
 
+# Required fields for passport
 required_fields = ['byr', 'iyr', 'eyr', 'hgt', 'hcl', 'ecl', 'pid', 'cid']
 
 passport_batch = f1.readlines()
 
+# I assign a value to each required field: byr = 1, iyr = 2, ...
+# If the field is found, the field's assigned value is added to 'checkSum'
+# checkSum will equal 28 if all fields except for 'cid' are found
+# checkSum will equal 36 is all fields including 'cid' are found
 checkSum = 0
 validPP_count = 0
 
@@ -41,6 +46,7 @@ for passport_data_line in passport_batch:
         passport_data_line_s = passport_data_line.split()
         for field in passport_data_line_s:
             field_s = field.split(":")
+            # The if statements perform all the passport value validation checks
             if field_s[0] == 'byr':
                if int(field_s[1]) < 1920 or int(field_s[1]) > 2002:
                    checkSum = checkSum + 100
