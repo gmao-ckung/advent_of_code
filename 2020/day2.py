@@ -1,6 +1,6 @@
 import numpy as np
 
-fopen = open("/home/ckung/Code/Advent_Of_Code/input.day2","r")
+fopen = open("/home/ckung/Code/advent_of_code/2020/input.day2","r")
 passLine = fopen.readlines()
 
 lowRange  = []
