@@ -1,6 +1,8 @@
 import numpy as np
-
-fopen = open("/home/ckung/Code/advent_of_code/2020/input.day2","r")
+import os
+CURR_DIR = os.path.dirname(os.path.realpath(__file__))
+print(CURR_DIR)
+fopen = open(CURR_DIR+"/input.day2","r")
 passLine = fopen.readlines()
 
 lowRange  = []

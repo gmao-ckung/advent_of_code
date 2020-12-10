@@ -1,5 +1,5 @@
 import numpy as np
-f1 = open("/home/ckung/Code/advent_of_code/2020/input.day8")
+f1 = open("/Users/ckung/Documents/Code/advent_of_code/2020/input.day8")
 
 instruction_list = f1.readlines()
 

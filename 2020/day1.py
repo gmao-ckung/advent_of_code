@@ -1,6 +1,8 @@
 import numpy as np
-
-data = np.loadtxt('/home/ckung/Code/advent_of_code/2020/input.day1')
+import os
+CURR_DIR = os.path.dirname(os.path.realpath(__file__))
+print(CURR_DIR)
+data = np.loadtxt(CURR_DIR+'/input.day1')
 
 # Part 1
 for i in range(data.size):

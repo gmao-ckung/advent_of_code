@@ -1,4 +1,8 @@
-f1 = open("/home/ckung/Code/advent_of_code/2020/input.day5")
+import os
+CURR_DIR = os.path.dirname(os.path.realpath(__file__))
+print(CURR_DIR)
+
+f1 = open(CURR_DIR+"/input.day5")
 
 BSP_data = f1.readlines()
 
