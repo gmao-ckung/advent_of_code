@@ -1,5 +1,8 @@
 import numpy as np
-f1 = open("/home/ckung/Code/advent_of_code/2020/input.day9")
+import os
+CURR_DIR = os.path.dirname(os.path.realpath(__file__))
+print(CURR_DIR)
+f1 = open(CURR_DIR+"/input.day9")
 
 all_numbers = f1.readlines()
 
@@ -31,7 +34,20 @@ print("There's no combination for", all_numbers[loc])
 
 invalid_number = int(all_numbers[loc].replace("\n",""))
 
-contiguous_number_array = np.zeros(1)
+
 for i in range(len(all_numbers)):
+    contiguous_number_array = np.zeros(1,dtype=int)
+    contiguous_number_array[0] = int(all_numbers[i])
+    found = False
     for j in range(i+1,len(all_numbers)):
-        
+        contiguous_number_array = np.append(contiguous_number_array,int(all_numbers[j]))
+        if np.sum(contiguous_number_array) > invalid_number:
+            break
+        if np.sum(contiguous_number_array) == invalid_number:
+            found = True
+            break
+    if found:
+        weakness = np.sort(contiguous_number_array)[0] + np.sort(contiguous_number_array)[-1]
+        break
+
+print("Weakness Number =", weakness)
