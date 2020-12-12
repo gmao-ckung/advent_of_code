@@ -69,4 +69,8 @@ while(not match):
 #print(new_seat_layout)
 
 occupied_seats = sum(row.count('#') for row in new_seat_layout)
-print("There are", occupied_seats, "occupied seats!")
+print("Part 1: There are", occupied_seats, "occupied seats!")
+
+test_row = '.L.L.#.#.#.#.'
+
+print(test_row)
