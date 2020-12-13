@@ -20,3 +20,35 @@ for ID in bus_IDs_split:
 nearest_time = sorted(time_dictionary)[0]
 print("Part 1: ID of bus with nearest departure time =", time_dictionary[nearest_time])
 print("Part 1: Time to wait =", (nearest_time-depart_time)*time_dictionary[nearest_time])
+
+# *** Part 2 ***
+
+bus_time_shift = []
+bus_ID = []
+shift = 0
+for ID in bus_IDs_split:
+    if ID != 'x':
+        bus_time_shift.append(shift)
+        bus_ID.append(int(ID))
+    shift = shift+1
+
+found = False
+factor = 100000000000000
+
+while not found:
+    factor = factor + 1
+    testValue =  bus_ID[0] * factor
+    verify = 0
+    for i in range(1,len(bus_ID)):
+        if (testValue + bus_time_shift[i])%bus_ID[i] == 0:
+            verify = verify+1
+        else:
+            break
+
+    if verify == len(bus_ID) - 1:
+        found = True
+
+    if factor%1000000==0:
+        print("Searched past", factor)
+
+print("Initial Time =", bus_ID[0]*factor)
