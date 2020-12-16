@@ -2,7 +2,7 @@ import os
 import math
 CURR_DIR = os.path.dirname(os.path.realpath(__file__))
 print(CURR_DIR)
-f1 = open(CURR_DIR+"/input.day13")
+f1 = open(CURR_DIR+"/input.test")
 data = f1.readlines()
 
 depart_time = int(data[0].replace("\n",""))
@@ -23,6 +23,8 @@ print("Part 1: Time to wait =", (nearest_time-depart_time)*time_dictionary[neare
 
 # *** Part 2 ***
 
+# Note : It looks like the bus IDs are all prime numbers
+
 bus_time_shift = []
 bus_ID = []
 shift = 0
@@ -33,7 +35,20 @@ for ID in bus_IDs_split:
     shift = shift+1
 
 found = False
-factor = 100000000000000
+factor = 100002618000000
+
+def is_prime(inputNum):
+    result = True
+
+    for i in range(2,inputNum):
+        if inputNum%i == 0:
+            print(i, "is a factor")
+            result = False
+            break
+    
+    return result
+
+is_prime(6)
 
 while not found:
     factor = factor + 1
@@ -52,3 +67,4 @@ while not found:
         print("Searched past", factor)
 
 print("Initial Time =", bus_ID[0]*factor)
+
