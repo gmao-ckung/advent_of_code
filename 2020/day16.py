@@ -2,7 +2,7 @@ import os
 import math
 CURR_DIR = os.path.dirname(os.path.realpath(__file__))
 print(CURR_DIR)
-f1 = open(CURR_DIR+"/input.day16")
+f1 = open(CURR_DIR+"/input.test")
 data = f1.readlines()
 
 # *** Part 1 ***
@@ -73,4 +73,28 @@ error_rate = 0
 for i in invalid_check_dict.keys():
     error_rate += invalid_check_dict[i]
 
-print("Ticket Scanning Error Rate=", error_rate)
+print("Ticket Scanning Error Rate =", error_rate)
+
+ticket_to_field_position_match = {}
+
+# *** Looping region to sort out matches to fields for each entry
+for nb_ticket in range(1,len(ticket_dict)):
+    if nb_ticket not in invalid_check_dict.keys():
+        nb_ticket_field_values = list(ticket_dict[nb_ticket])
+        occur_list = []
+        for value in nb_ticket_field_values:
+            location_match_list = []
+            for field_name in field_dict:
+                if ((field_dict[field_name][0] <= value) and (field_dict[field_name][1] >= value)) or \
+                   ((field_dict[field_name][2] <= value) and (field_dict[field_name][3] >= value)):
+                   location_match_list.append(field_name)
+            #print(location_match_list)
+            occur_list.append(location_match_list)
+        #print(occur_list)
+        ticket_to_field_position_match[nb_ticket] = occur_list
+
+#print(ticket_to_field_position_match)
+
+for field_name in field_dict:
+    for ticket in ticket_to_field_position_match.keys():
+
