@@ -95,6 +95,17 @@ for nb_ticket in range(1,len(ticket_dict)):
 
 #print(ticket_to_field_position_match)
 
+
+field_name_count = {}
+
 for field_name in field_dict:
     for ticket in ticket_to_field_position_match.keys():
+        digit_to_field_count = {}
+        for digit in range(len(ticket_to_field_position_match[ticket])):
+            digit_to_field_count[digit] = 0
+        for digit in range(len(ticket_to_field_position_match[ticket])):
+            if field_name in ticket_to_field_position_match[ticket][digit]:
+                digit_to_field_count[digit] += 1
+        print(digit_to_field_count)
+    print(field_name_count)
 
