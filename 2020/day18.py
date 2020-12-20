@@ -1,7 +1,7 @@
 import os
 CURR_DIR = os.path.dirname(os.path.realpath(__file__))
 print(CURR_DIR)
-f1 = open(CURR_DIR+"/input.test")
+f1 = open(CURR_DIR+"/input.day18")
 expressions = f1.readlines()
 
 def compute_expression(start_position, expression):
@@ -10,15 +10,21 @@ def compute_expression(start_position, expression):
 
     while(curr_position < len(expression)):
         if(start_position == curr_position):
-            result += int(expression[curr_position])
-            curr_position += 1
+            if expression[curr_position] != '(':
+                result += int(expression[curr_position])
+                curr_position += 1
+            else:
+                curr_position += 1
+                result, curr_position = compute_expression(curr_position,expression)
         if expression[curr_position] == ')':
+            curr_position += 1
             return result, curr_position
         operator = expression[curr_position]
         curr_position += 1
         if operator == '+':
             if expression[curr_position] != '(':
                 result += int(expression[curr_position])
+                curr_position += 1
             else:
                 curr_position += 1
                 p_result, curr_position = compute_expression(curr_position,expression)
@@ -26,6 +32,7 @@ def compute_expression(start_position, expression):
         elif operator == '-':
             if expression[curr_position] != '(':
                 result -= int(expression[curr_position])
+                curr_position += 1
             else:
                 curr_position += 1
                 p_result, curr_position = compute_expression(curr_position,expression)
@@ -33,12 +40,12 @@ def compute_expression(start_position, expression):
         elif operator == "*":
             if expression[curr_position] != '(':
                 result *= int(expression[curr_position])
+                curr_position += 1
             else:
                 curr_position += 1
                 p_result, curr_position = compute_expression(curr_position,expression)
                 result *= p_result
-        curr_position += 1
-
+        
     return result, curr_position
         
 total_sum = 0
