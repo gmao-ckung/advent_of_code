@@ -10,7 +10,7 @@ def traverse_rule_dictionary(instructions, rule_dict):
     for step in instructions:
         if step != '|':
             instruction = rule_dict[int(step)]
-            print(instruction)
+            #print(instruction)
             if len(instruction) == 1:
                 combination_found.append(instruction)
             else:
@@ -29,8 +29,10 @@ def traverse_rule_dictionary(instructions, rule_dict):
             for j in range(len(combination_found[1])):
                 combination_list.append(combination_found[0][i]+combination_found[1][j])
     elif 1 == len(combination_found):
-        combination_list.append(combination_found[0])
+        for i in range(len(combination_found[0])):
+            combination_list.append(combination_found[0][i])
 
+    #print(combination_list)
     return combination_list
 
 data_list = []
@@ -59,9 +61,9 @@ rule_0 = rule_dict[0]
 rule_0_combination_dict = {}
 rule_0_combination = ""
 for rule in rule_0:
-    print(rule)
+    #print(rule)
     instruction = rule_dict[int(rule)]
-    print(instruction)
+    #print(instruction)
     if len(instruction) == 1 and not instruction[0].isnumeric():
         rule_0_combination_dict[int(rule)] = instruction
     else:
@@ -85,7 +87,8 @@ print(combo_list)
 
 count = 0
 for data in data_list:
-    if data in combo_list:
-        count += 1
+    for combo in combo_list:
+        if combo == data:
+            count += 1
 
-print("Count =", count)
+print("Part 1: Matches to Rule 0 =", count)
