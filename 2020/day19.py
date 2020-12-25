@@ -1,7 +1,7 @@
 import os
 CURR_DIR = os.path.dirname(os.path.realpath(__file__))
 print(CURR_DIR)
-f1 = open(CURR_DIR+"/input.test")
+f1 = open(CURR_DIR+"/input.day19")
 rules_and_dataToCheck = f1.readlines()
 
 def traverse_rule_dictionary(instructions, rule_dict):
@@ -11,7 +11,7 @@ def traverse_rule_dictionary(instructions, rule_dict):
         if step != '|':
             instruction = rule_dict[int(step)]
             #print(instruction)
-            if len(instruction) == 1:
+            if len(instruction) == 1 and not instruction[0].isnumeric():
                 combination_found.append(instruction)
             else:
                 combination_found.append(traverse_rule_dictionary(instruction, rule_dict))
@@ -20,9 +20,9 @@ def traverse_rule_dictionary(instructions, rule_dict):
                 for i in range(len(combination_found[0])):
                     for j in range(len(combination_found[1])):
                         combination_list.append(combination_found[0][i]+combination_found[1][j])
-                combination_found = []
             elif 1 == len(combination_found):
                 combination_list.append(combination_found[0])
+            combination_found = []
                 
     if 2 == len(combination_found):
         for i in range(len(combination_found[0])):
@@ -83,7 +83,7 @@ def assemble_potential_combinations(index, rule_0_dict, instruction, partial_com
 partial_combo = ""
 combo_list = []
 combo_list = assemble_potential_combinations(0, rule_0_combination_dict, rule_dict[0], partial_combo, combo_list)
-print(combo_list)
+#print(combo_list)
 
 count = 0
 for data in data_list:
