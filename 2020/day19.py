@@ -80,18 +80,18 @@ def assemble_potential_combinations(index, rule_0_dict, instruction, partial_com
             assemble_potential_combinations(index+1,rule_0_dict, instruction, curr_combo, combo_list)
     return combo_list
 
-# partial_combo = ""
-# combo_list = []
-# combo_list = assemble_potential_combinations(0, rule_0_combination_dict, rule_dict[0], partial_combo, combo_list)
-# #print(combo_list)
+partial_combo = ""
+combo_list = []
+combo_list = assemble_potential_combinations(0, rule_0_combination_dict, rule_dict[0], partial_combo, combo_list)
+#print(combo_list)
 
-# count = 0
-# for data in data_list:
-#     for combo in combo_list:
-#         if combo == data:
-#             count += 1
+count = 0
+for data in data_list:
+    for combo in combo_list:
+        if combo == data:
+            count += 1
 
-# print("Part 1: Matches to Rule 0 =", count)
+print("Part 1: Matches to Rule 0 =", count)
 
 # *** Part 2 ***
 
