@@ -80,15 +80,53 @@ def assemble_potential_combinations(index, rule_0_dict, instruction, partial_com
             assemble_potential_combinations(index+1,rule_0_dict, instruction, curr_combo, combo_list)
     return combo_list
 
-partial_combo = ""
-combo_list = []
-combo_list = assemble_potential_combinations(0, rule_0_combination_dict, rule_dict[0], partial_combo, combo_list)
-#print(combo_list)
+# partial_combo = ""
+# combo_list = []
+# combo_list = assemble_potential_combinations(0, rule_0_combination_dict, rule_dict[0], partial_combo, combo_list)
+# #print(combo_list)
+
+# count = 0
+# for data in data_list:
+#     for combo in combo_list:
+#         if combo == data:
+#             count += 1
+
+# print("Part 1: Matches to Rule 0 =", count)
+
+# *** Part 2 ***
+
+rule_8_size = len(rule_0_combination_dict[8][0])
+
+
+# Extract "thirty-one"-type combinations
+thirty_one_portions = []
+for rule in rule_0_combination_dict[11]:
+    if rule[rule_8_size:] not in thirty_one_portions:
+        thirty_one_portions.append(rule[rule_8_size:])
 
 count = 0
-for data in data_list:
-    for combo in combo_list:
-        if combo == data:
-            count += 1
 
-print("Part 1: Matches to Rule 0 =", count)
+for data in data_list:
+    forty_two_count = 0
+    while data[forty_two_count*rule_8_size:(forty_two_count+1)*rule_8_size] in rule_0_combination_dict[8]:
+        forty_two_count += 1
+        print("42 count =", forty_two_count)
+    
+    found = False
+    if(forty_two_count >= 2):
+        thirty_one_count = 0
+        FTC_2 = forty_two_count
+        while data[FTC_2*rule_8_size:(FTC_2+1)*rule_8_size] in thirty_one_portions:
+            thirty_one_count += 1
+            FTC_2 += 1
+            if FTC_2*rule_8_size >= len(data):
+                if forty_two_count > thirty_one_count:
+                    count += 1
+                    found = True
+                    break
+        
+    if found:
+        print(data, "is a match!")
+
+print("Part 2: Matches to Rule 0 =", count)
+            
