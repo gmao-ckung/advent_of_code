@@ -1,4 +1,5 @@
 import os
+import math
 import numpy as np
 CURR_DIR = os.path.dirname(os.path.realpath(__file__))
 print(CURR_DIR)
@@ -13,7 +14,6 @@ def check_borders(tile_image_data_0, tile_image_data_1):
     for i in range(8):
         if np.array_equal(tile_image_data_0[0,:], temp_image[-1,:]):
             return True, temp_image
-            break
         else:
             temp_image = np.rot90(temp_image)
             if i == 3:
@@ -24,7 +24,6 @@ def check_borders(tile_image_data_0, tile_image_data_1):
     for i in range(8):
         if np.array_equal(tile_image_data_0[-1,:], temp_image[0,:]):
             return True, temp_image
-            break
         else:
             temp_image = np.rot90(temp_image)
             if i == 3:
@@ -35,7 +34,6 @@ def check_borders(tile_image_data_0, tile_image_data_1):
     for i in range(8):
         if np.array_equal(tile_image_data_0[:,0], temp_image[:,-1]):
             return True, temp_image
-            break
         else:
             temp_image = np.rot90(temp_image)
             if i == 3:
@@ -46,7 +44,6 @@ def check_borders(tile_image_data_0, tile_image_data_1):
     for i in range(8):
         if np.array_equal(tile_image_data_0[:,-1], temp_image[:,0]):
             return True, temp_image
-            break
         else:
             temp_image = np.rot90(temp_image)
             if i == 3:
@@ -54,6 +51,35 @@ def check_borders(tile_image_data_0, tile_image_data_1):
 
 
     return False, 0
+
+def find_direction(tile_image_data_0, tile_image_data_1):
+    temp_image = tile_image_data_1
+
+    # Testing for match by rotating tile_image_data_1 and seeing if it attaches to the "south" of
+    # tile_image_data_0
+    for i in range(8):
+        if np.array_equal(tile_image_data_0[0,:], temp_image[-1,:]):
+            return "south", temp_image
+        
+    # Testing for match by rotating tile_image_data_1 and seeing if it attaches to the "north" of
+    # tile_image_data_0
+    for i in range(8):
+        if np.array_equal(tile_image_data_0[-1,:], temp_image[0,:]):
+            return "north", temp_image
+
+    # Testing for match by rotating tile_image_data_1 and seeing if it attaches to the "west" of
+    # tile_image_data_0
+    for i in range(8):
+        if np.array_equal(tile_image_data_0[:,0], temp_image[:,-1]):
+            return "west", temp_image
+
+    # Testing for match by rotating tile_image_data_1 and seeing if it attaches to the "east" of
+    # tile_image_data_0
+    for i in range(8):
+        if np.array_equal(tile_image_data_0[:,-1], temp_image[:,0]):
+            return "east", temp_image
+
+    return "null", 0
 
 tile_image_data = {}
 
@@ -101,14 +127,88 @@ for i in range(len(keys)):
 
 print("Part 1: Mutliplication of 4 corners =", corner_keys[0]* corner_keys[1]*corner_keys[2]*corner_keys[3])
 
-# # Find number of tiles in each direction starting from a corner
+# ***Part 2 ***
 
-# current_tile = tile_image_data[corner_keys[0]]
+# Establish dimensions of overall image
+squares_per_side = int(math.sqrt(len(keys)))
+x_len_overall_image = squares_per_side * (tile_image_data[keys[0]].shape[0]-2)
+overall_image = np.zeros((x_len_overall_image,x_len_overall_image))
 
-# print(current_tile)
+# Start building image from a tile corner
+current_tile_num = corner_keys[0]
+print("Current Tile =", current_tile_num)
+W_found = False
+E_found = False
+N_found = False
+S_found = False
 
-# #Going either north or south to find "height"
-# height_not_found = True
+for i in range(len(border_tiles[current_tile_num])):
+    if border_tiles[current_tile_num][i] in keys:
+        direction, adjustedArray = find_direction(tile_image_data[current_tile_num], \
+                                                tile_image_data[border_tiles[current_tile_num][i]])
+        if direction == "east":
+            E_found = True
+        elif direction == "west":
+            W_found = True
+        elif direction == "north":
+            N_found = True
+            next_tile_num = border_tiles[current_tile_num][i]
+        elif direction == "south":
+            S_found = True
+            next_tile_num = border_tiles[current_tile_num][i]
 
-# while(height_not_found):
-#     while 
+if E_found and S_found:
+    tile_origin = [(squares_per_side-1)*8,0]
+    
+elif E_found and N_found:
+    tile_origin = [0,0]
+
+elif W_found and S_found:
+    tile_origin = [(squares_per_side-2)*8,(squares_per_side-1)*8]
+
+elif E_found and N_found:
+    tile_origin = [0, (squares_per_side-2)*8]
+
+overall_image[tile_origin[0]:tile_origin[0]+8,
+                tile_origin[1]:tile_origin[1]+8] = tile_image_data[current_tile_num][1:-1,1:-1]
+
+if S_found:
+    tile_origin[0] -= 8
+
+elif N_found:
+    tile_origin[0] += 8
+
+keys.remove(current_tile_num)
+current_tile_num = next_tile_num
+
+while len(keys) > 0:
+    print("Current tile =",current_tile_num)
+    keys.remove(current_tile_num)
+    overall_image[tile_origin[0]:tile_origin[0]+8,
+                tile_origin[1]:tile_origin[1]+8] = tile_image_data[current_tile_num][1:-1,1:-1]
+    N_or_S_found = False
+    E_or_W_index = 0
+    for i in range(len(border_tiles[current_tile_num])):
+        if border_tiles[current_tile_num][i] in keys:
+            E_or_W_index = i
+            #print(border_tiles[current_tile_num][i])
+            direction, adjustedArray = find_direction(tile_image_data[current_tile_num], \
+                                                    tile_image_data[border_tiles[current_tile_num][i]])
+            #print(border_tiles[current_tile_num][i],"is going in the direction =", direction)
+
+            if direction == "south" or direction == "north":
+                N_or_S_found = True
+                if direction == "south":
+                    tile_origin[0] -= 8
+                if direction == "north":
+                    tile_origin[0] += 8
+                current_tile_num = border_tiles[current_tile_num][i]
+                break
+
+    if N_or_S_found == False:
+       # print("N or S not found!")
+        current_tile_num = border_tiles[current_tile_num][E_or_W_index]
+        if direction == "east":
+            tile_origin[1] += 8
+        if direction == "west":
+            tile_origin[1] -= 8
