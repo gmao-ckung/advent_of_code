@@ -151,7 +151,7 @@ overall_image = np.zeros((x_len_overall_image,x_len_overall_image),dtype=int)
 
 # Start building image from a tile corner
 current_tile_num = corner_keys[0]
-print("Current Tile =", current_tile_num)
+#print("Current Tile =", current_tile_num)
 W_found = False
 E_found = False
 N_found = False
@@ -201,7 +201,7 @@ keys.remove(current_tile_num)
 current_tile_num = next_tile_num
 
 while len(keys) > 0:
-    print("Current tile =",current_tile_num)
+    #print("Current tile =",current_tile_num)
     keys.remove(current_tile_num)
     overall_image[tile_origin[0]:tile_origin[0]+8,
                 tile_origin[1]:tile_origin[1]+8] = tile_image_data[current_tile_num][1:-1,1:-1]
@@ -234,7 +234,7 @@ while len(keys) > 0:
         if direction == "west":
             tile_origin[1] -= 8
 
-print(overall_image)
+#print(overall_image)
 
 # Create Sea Monster
 sea_monster = np.zeros((3,20),dtype=int)
@@ -308,5 +308,7 @@ for transpose_index in range(2):
 
 unique_elements, count_elements = np.unique(overall_image, return_counts=True)
 
-print(unique_elements)
-print(count_elements)
+#print(unique_elements)
+#print(count_elements)
+
+print("Part 2: Number of # =", count_elements[1])
