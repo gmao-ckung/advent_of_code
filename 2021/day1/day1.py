@@ -21,7 +21,7 @@ increase_count = 0
 for i in range(len(data)):
     window1_value = 0
     window2_value = 0
-    # *** Window 1 ***
+    
     if i < len(data):
         window1_value += data[i]
     if (i+i) < len(data):
