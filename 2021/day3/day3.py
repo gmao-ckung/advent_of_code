@@ -9,6 +9,7 @@ initialize = True
 gamma_rate = 0
 epsilon_rate = 0
 
+# Routine to count 1's in each 2's placeholder
 def bitCounter(binaryNumList, newLine=False):
     initialize = True
     for binaryNum in binaryNumList:
@@ -24,6 +25,42 @@ def bitCounter(binaryNumList, newLine=False):
         for bit in range(len(binaryNum[0])):
             bitTracker[bit] += int(binaryNum[0][bit])
     return bitTracker
+
+# Find the binary value for the particular life support rating
+def life_support_calc(rating, bitLen, current_list):
+    for bit in range(bitLen):
+        updated_list = []
+        if bit == 0:
+            lifeBitTracker = bitCounter(current_list,True)
+        else:
+            lifeBitTracker = bitCounter(current_list)
+        
+        listLength = len(current_list)
+
+        for binaryNum in current_list:
+            if bit == 0:
+                binaryNum = binaryNum.split()
+
+            if rating == "oxy":
+                if lifeBitTracker[bit] >= listLength/2:
+                    if int(binaryNum[0][bit]) == 1:
+                        updated_list.append(binaryNum)
+                else:
+                    if int(binaryNum[0][bit]) == 0:
+                        updated_list.append(binaryNum)
+
+            if rating == "co2":
+                if lifeBitTracker[bit] >= listLength/2:
+                    if int(binaryNum[0][bit]) == 0:
+                        updated_list.append(binaryNum)
+                else:
+                    if int(binaryNum[0][bit]) == 1:
+                        updated_list.append(binaryNum)
+        current_list = updated_list
+        if len(current_list) == 1:
+            return current_list
+
+    return current_list
 
 # *** Part 1 ***
 
@@ -50,52 +87,8 @@ co2_gen_rate = 0
 oxygen_list_current = binaryNums
 co2_list_current = binaryNums
 
-for bit in range(len(bitTracker)):
-    oxygen_list_updated = []
-    if bit == 0:
-        oxyBitTracker = bitCounter(oxygen_list_current,True)
-    else:
-        oxyBitTracker = bitCounter(oxygen_list_current)
-    
-    listLength = len(oxygen_list_current)
-
-    for binaryNum in oxygen_list_current:
-        if bit == 0:
-            binaryNum = binaryNum.split()
-        if oxyBitTracker[bit] >= listLength/2:
-            if int(binaryNum[0][bit]) == 1:
-                oxygen_list_updated.append(binaryNum)
-        else:
-            if int(binaryNum[0][bit]) == 0:
-                oxygen_list_updated.append(binaryNum)
-
-    oxygen_list_current = oxygen_list_updated
-    if len(oxygen_list_current) == 1:
-        break    
-
-
-for bit in range(len(bitTracker)):
-    co2_list_updated = []
-    if bit == 0:
-        co2BitTracker = bitCounter(co2_list_current,True)
-    else:
-        co2BitTracker = bitCounter(co2_list_current)
-
-    listLength = len(co2_list_current)
-
-    for binaryNum in co2_list_current:
-        if bit == 0:
-            binaryNum = binaryNum.split()
-        if co2BitTracker[bit] >= listLength/2:
-            if int(binaryNum[0][bit]) == 0:
-                co2_list_updated.append(binaryNum)
-        else:
-            if int(binaryNum[0][bit]) == 1:
-                co2_list_updated.append(binaryNum)
-
-    co2_list_current = co2_list_updated
-    if len(co2_list_current) == 1:
-        break 
+oxygen_list_current = life_support_calc("oxy", len(bitTracker), oxygen_list_current)
+co2_list_current    = life_support_calc("co2", len(bitTracker), co2_list_current)
 
 print(oxygen_list_current)
 print(co2_list_current)
