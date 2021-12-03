@@ -14,8 +14,6 @@ epsilon_rate = 0
 # *** Part 1 ***
 
 bitTracker = bitCounter(binaryNums, True)
-
-print(bitTracker)
 listLength = len(binaryNums)
 
 for bit in range(len(bitTracker)):
@@ -24,8 +22,6 @@ for bit in range(len(bitTracker)):
     else:
         epsilon_rate += 2**(len(bitTracker)-(bit+1))
 
-print(gamma_rate)
-print(epsilon_rate)
 print("Power Consumption = ", gamma_rate * epsilon_rate)
 
 # *** Part 2 ***
@@ -39,9 +35,6 @@ co2_list_current = binaryNums
 oxygen_list_current = life_support_calc("oxy", len(bitTracker), oxygen_list_current)
 co2_list_current    = life_support_calc("co2", len(bitTracker), co2_list_current)
 
-print(oxygen_list_current)
-print(co2_list_current)
-
 for i in range(len(oxygen_list_current[0][0])):
     if int(oxygen_list_current[0][0][i]) == 1:
         oxygen_gen_rate += 2**(len(bitTracker)-(i+1))
@@ -49,8 +42,5 @@ for i in range(len(oxygen_list_current[0][0])):
 for i in range(len(co2_list_current[0][0])):
     if int(co2_list_current[0][0][i]) == 1:
         co2_gen_rate += 2**(len(bitTracker)-(i+1))
-
-print(oxygen_gen_rate)
-print(co2_gen_rate)
 
 print("Life Support Rating = ", oxygen_gen_rate*co2_gen_rate)

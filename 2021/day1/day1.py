@@ -33,8 +33,6 @@ for i in range(len(data)):
     if (i+3) < len(data):
         window2_value += data[i+3]
 
-    # print("window 1 value = ", window1_value)
-    # print("window 2 value = ", window2_value)
     if window1_value < window2_value:
         increase_count += 1
 
