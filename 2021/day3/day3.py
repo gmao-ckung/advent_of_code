@@ -1,6 +1,5 @@
 import numpy as np
 import os
-
 from support import *
 
 CURR_DIR = os.path.dirname(os.path.realpath(__file__))
