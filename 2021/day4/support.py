@@ -11,14 +11,9 @@ def readLineIntoList(commaDelinLine, delin=","):
     return lineListData
 
 def createBingoBoards(inputData,bingoBoardSize):
-    # From the number of lines in the input file, we can figure out number of
-    # bingo boards
     numOfBoards = int((len(inputData)-1) / (bingoBoardSize+1))
 
-    # Creating two 3D array of bingo boards where the 3rd axis delineates each distinct board
-    # The first bingo board contains the numbers
     bingoBoards_num = np.zeros((bingoBoardSize,bingoBoardSize,numOfBoards),dtype=int)
-    # The second bingo board is the "stamp" board on whether a number was found
     bingoBoards_stamps = np.zeros((bingoBoardSize,bingoBoardSize,numOfBoards),dtype=bool)
 
     for line in range(2,len(inputData)):
@@ -72,15 +67,6 @@ def checkRowsForBingos_v2(bingoBoard_stamp, bingoBoardSize):
     boardBingoList = checkColsForBingos_v2(bingoBoard_stamp_T, bingoBoardSize)
 
     return boardBingoList
-
-def checkDiagForBingos(bingoBoard_stamp, bingoBoardSize):
-    for boardIndex in range(bingoBoard_stamp.shape[2]):
-        if np.trace(bingoBoard_stamp[:,:,boardIndex]) == bingoBoardSize:
-            return True, boardIndex, 0
-        if np.trace(np.fliplr(bingoBoard_stamp[:,:,boardIndex])) == bingoBoardSize:
-            return True, boardIndex, 1
-
-    return False, None, None
 
 def sumUnmarkedNum(bingoBoard_num, bingoBoard_stamp):
     return sum(bingoBoard_num[~np.array(bingoBoard_stamp)])
