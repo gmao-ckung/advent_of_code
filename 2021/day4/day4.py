@@ -9,11 +9,8 @@ inputData = fopen.readlines()
 # Making assumption that all bingo boards are 5x5
 bingoBoardSize = 5
 
-# The first line in the input file has the drawn numbers
 numbersDrawn = readLineIntoList(inputData[0])
 
-# Create 3D array of bingo boards where the 3rd axis delineates each distinct board
-# There are two distinct boards: A "number" board and a "stamping" board
 bingoBoard_num, bingoBoard_stamps = createBingoBoards(inputData,bingoBoardSize)
 
 # *** Part 1 ***
