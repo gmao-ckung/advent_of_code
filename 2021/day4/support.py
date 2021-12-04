@@ -52,11 +52,26 @@ def checkColsForBingos(bingoBoard_stamp, bingoBoardSize):
 
     return False, None, None
 
+def checkColsForBingos_v2(bingoBoard_stamp, bingoBoardSize):
+    boardBingoList = []
+    for boardIndex in range(bingoBoard_stamp.shape[2]):
+        checkColBingo = np.where(sum(bingoBoard_stamp[:,:,boardIndex]) == bingoBoardSize)
+        if checkColBingo[0].shape[0] > 0:
+            boardBingoList.append(boardIndex)
+
+    return boardBingoList
+
 def checkRowsForBingos(bingoBoard_stamp, bingoBoardSize):
     bingoBoard_stamp_T = np.transpose(bingoBoard_stamp,axes=[1,0,2])
     isBingo, boardNum, RowNum = checkColsForBingos(bingoBoard_stamp_T, bingoBoardSize)
 
     return isBingo, boardNum, RowNum
+
+def checkRowsForBingos_v2(bingoBoard_stamp, bingoBoardSize):
+    bingoBoard_stamp_T = np.transpose(bingoBoard_stamp,axes=[1,0,2])
+    boardBingoList = checkColsForBingos_v2(bingoBoard_stamp_T, bingoBoardSize)
+
+    return boardBingoList
 
 def checkDiagForBingos(bingoBoard_stamp, bingoBoardSize):
     for boardIndex in range(bingoBoard_stamp.shape[2]):
