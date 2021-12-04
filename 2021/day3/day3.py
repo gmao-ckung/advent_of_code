@@ -7,7 +7,6 @@ print(CURR_DIR)
 fopen = open(CURR_DIR+"/input.day3","r")
 binaryNums = fopen.readlines()
 
-initialize = True
 gamma_rate = 0
 epsilon_rate = 0
 

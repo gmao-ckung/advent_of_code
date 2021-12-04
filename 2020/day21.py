@@ -8,6 +8,7 @@ f1 = open(CURR_DIR+"/input.test")
 ingredients_and_allergens = f1.readlines()
 
 ingredient_count = {}
+allergen_list = []
 
 for I_A in ingredients_and_allergens:
     I_A = I_A.replace("\n","")
@@ -18,6 +19,8 @@ for I_A in ingredients_and_allergens:
     for i in range(len(allergens)):
         allergens[i] = allergens[i].replace(" ", "")
         allergens[i] = allergens[i].replace(")", "")
+        if allergens[i] not in allergen_list:
+            allergen_list.append(allergens[i])
     #print(ingredients)
     for ingredient in ingredients:
         if ingredient != "":
