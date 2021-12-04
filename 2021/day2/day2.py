@@ -4,7 +4,6 @@ CURR_DIR = os.path.dirname(os.path.realpath(__file__))
 fopen = open(CURR_DIR+"/input.day2","r")
 passLine = fopen.readlines()
 
-# print(passLine)
 horiz_len = 0
 depth_len = 0
 
