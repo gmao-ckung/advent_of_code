@@ -1,7 +1,6 @@
 import numpy as np
 import os
 CURR_DIR = os.path.dirname(os.path.realpath(__file__))
-print(CURR_DIR)
 data = np.loadtxt(CURR_DIR+'/input.day1')
 
 # *** Part 1 ***

@@ -3,7 +3,6 @@ import os
 from support import *
 
 CURR_DIR = os.path.dirname(os.path.realpath(__file__))
-print(CURR_DIR)
 fopen = open(CURR_DIR+"/input.day3","r")
 binaryNums = fopen.readlines()
 

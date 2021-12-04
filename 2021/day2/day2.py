@@ -1,7 +1,6 @@
 import numpy as np
 import os
 CURR_DIR = os.path.dirname(os.path.realpath(__file__))
-print(CURR_DIR)
 fopen = open(CURR_DIR+"/input.day2","r")
 passLine = fopen.readlines()
 
