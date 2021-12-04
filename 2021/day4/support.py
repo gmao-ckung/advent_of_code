@@ -39,34 +39,29 @@ def findNumberonBingoBoard(bingoBoard_num, bingoBoard_stamps, number):
                                                                  int(number))
     return bingoBoard_stamps
 
-def checkColsForBingos(bingoBoard_stamp, bingoBoardSize):
+def checkColsForBingos(bingoBoard_stamp, bingoBoardSize, Part1=True):
+    if ~Part1:
+        boardBingoList=[]
     for boardIndex in range(bingoBoard_stamp.shape[2]):
         checkColBingo = np.where(sum(bingoBoard_stamp[:,:,boardIndex]) == bingoBoardSize)
         if checkColBingo[0].shape[0] > 0:
-            return True, boardIndex, checkColBingo[0][0]
+            if Part1:
+                return True, boardIndex, checkColBingo[0][0]
+            else:
+                boardBingoList.append(boardIndex)
+    if Part1:
+        return False, None, None
+    else:
+        return boardBingoList
 
-    return False, None, None
-
-def checkColsForBingos_v2(bingoBoard_stamp, bingoBoardSize):
-    boardBingoList = []
-    for boardIndex in range(bingoBoard_stamp.shape[2]):
-        checkColBingo = np.where(sum(bingoBoard_stamp[:,:,boardIndex]) == bingoBoardSize)
-        if checkColBingo[0].shape[0] > 0:
-            boardBingoList.append(boardIndex)
-
-    return boardBingoList
-
-def checkRowsForBingos(bingoBoard_stamp, bingoBoardSize):
+def checkRowsForBingos(bingoBoard_stamp, bingoBoardSize,Part1=True):
     bingoBoard_stamp_T = np.transpose(bingoBoard_stamp,axes=[1,0,2])
-    isBingo, boardNum, RowNum = checkColsForBingos(bingoBoard_stamp_T, bingoBoardSize)
-
-    return isBingo, boardNum, RowNum
-
-def checkRowsForBingos_v2(bingoBoard_stamp, bingoBoardSize):
-    bingoBoard_stamp_T = np.transpose(bingoBoard_stamp,axes=[1,0,2])
-    boardBingoList = checkColsForBingos_v2(bingoBoard_stamp_T, bingoBoardSize)
-
-    return boardBingoList
+    if Part1:
+        isBingo, boardNum, RowNum = checkColsForBingos(bingoBoard_stamp_T, bingoBoardSize)
+        return isBingo, boardNum, RowNum
+    else:
+        boardBingoList = checkColsForBingos(bingoBoard_stamp_T, bingoBoardSize, Part1)
+        return boardBingoList
 
 def sumUnmarkedNum(bingoBoard_num, bingoBoard_stamp):
     return sum(bingoBoard_num[~np.array(bingoBoard_stamp)])

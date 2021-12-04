@@ -30,7 +30,7 @@ bingoBoard_num, bingoBoard_stamps = createBingoBoards(inputData,bingoBoardSize)
 
 for number in numbersDrawn:
     findNumberonBingoBoard(bingoBoard_num, bingoBoard_stamps, int(number))
-    bingoBoardList = checkColsForBingos_v2(bingoBoard_stamps, bingoBoardSize)
+    bingoBoardList = checkColsForBingos(bingoBoard_stamps, bingoBoardSize, False)
     if len(bingoBoardList) > 0:
         if bingoBoard_num.shape[2] > 1:
             bingoBoard_num = np.delete(bingoBoard_num,bingoBoardList,2)
@@ -38,7 +38,7 @@ for number in numbersDrawn:
         else:
             printScore(int(number), bingoBoard_num, bingoBoard_stamps, 0)
             break
-    bingoBoardList = checkRowsForBingos_v2(bingoBoard_stamps, bingoBoardSize)
+    bingoBoardList = checkRowsForBingos(bingoBoard_stamps, bingoBoardSize, False)
     if len(bingoBoardList) > 0:
         if bingoBoard_num.shape[2] > 1:
             bingoBoard_num = np.delete(bingoBoard_num,bingoBoardList,2)
