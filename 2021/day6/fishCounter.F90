@@ -1,3 +1,6 @@
+! Note : For gfortran, the flag "-fdefault-integer-8" needs to be used to default to
+!        64-bit integers
+
 recursive function fishLifeCounter(fishTimer, days) result(numFish)
    integer, intent(in):: fishTimer, days
    integer :: newFishTimer, newDays
