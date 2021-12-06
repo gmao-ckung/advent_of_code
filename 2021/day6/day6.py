@@ -37,7 +37,7 @@ totFish = 0
 fishBucket = np.zeros(6,dtype=np.int64)
 
 # Recusive code on Python is really slow for some reason, so I wrote up the
-# recursive fish counter code in Fortran to get these "bucket" numbers depending than
+# recursive fish counter code in Fortran to get these "bucket" numbers that
 # can be used to compute the total number of fish
 fishBucket[0] = 6703087164
 fishBucket[1] = 6206821033
