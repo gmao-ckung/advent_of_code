@@ -4,7 +4,7 @@
 recursive function fishLifeCounter(fishTimer, days) result(numFish)
    integer, intent(in):: fishTimer, days
    integer :: newFishTimer, newDays
-   integer*8 :: numFish
+   integer :: numFish
 
    newFishTimer = fishTimer - 1
    newDays = days - 1
