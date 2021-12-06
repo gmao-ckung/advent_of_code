@@ -45,3 +45,27 @@ def interateFishLife_recursive(fishTimer,days):
         else:
             return interateFishLife_recursive(6, days) + interateFishLife_recursive(8, days)
 
+memo = {}
+def interateFishLife_recursive_memo(fishTimer,days):
+    fishTimer -= 1
+    days -= 1
+
+    if (fishTimer*10)+(days*2) in memo:
+        return memo[(fishTimer*10)+(days*2)]
+    
+    if days == 0:
+        if fishTimer >= 0:
+            memo[(fishTimer*10)+(days*2)] = 1
+            return 1
+        else:
+            memo[(fishTimer*10)+(days*2)] = 2
+            return 2
+    else:
+        if fishTimer >= 0:
+            value = interateFishLife_recursive(fishTimer, days)
+            memo[(fishTimer*10)+(days*2)] = value 
+            return value
+        else:
+            value = interateFishLife_recursive(6, days) + interateFishLife_recursive(8, days)
+            memo[(fishTimer*10)+(days*2)] = value
+            return value

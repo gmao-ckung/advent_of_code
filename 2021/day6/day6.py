@@ -14,8 +14,7 @@ fishArray = createFishArray(initialFishList)
 
 iterationDays = 80
 
-# *** "Slow, descriptive" Implementation ***
-
+# *** Interative Implementation ***
 t1 = time.perf_counter()
 fishArray = iterateFishLife(fishArray, iterationDays)
 t2 = time.perf_counter()
@@ -24,13 +23,22 @@ print("Version 1 runtime :", t2-t1)
 
 fishArray = createFishArray(initialFishList)
 
+# *** Recursive Implementation *** 
 totFish = 0
-
-# *** "Fast, recursive" Implementation *** 
-
 t1 = time.perf_counter()
 for i in range(fishArray.shape[0]):
     numFish = interateFishLife_recursive(fishArray[i], iterationDays)
+    totFish += numFish
+t2 = time.perf_counter()
+print("Part 1: Total Number of Fish = ", totFish)
+print("Version 2 runtime :", t2-t1)
+
+
+# *** "Memo" Implementation that improve recursion performance***
+totFish = 0
+t1 = time.perf_counter()
+for i in range(fishArray.shape[0]):
+    numFish = interateFishLife_recursive_memo(fishArray[i], iterationDays)
     totFish += numFish
 t2 = time.perf_counter()
 print("Part 1: Total Number of Fish = ", totFish)
