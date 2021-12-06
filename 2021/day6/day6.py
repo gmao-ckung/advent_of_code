@@ -8,31 +8,37 @@ fopen = open(CURR_DIR+"/input.day6","r")
 initialFishList = fopen.readlines()
 
 initialFishList = separateViaDelin(initialFishList[0])
+fishArray = createFishArray(initialFishList)
+
+# *** Part 1 ***
+
+iterationDays = 80
+
+# *** "Slow, descriptive" Implementation ***
+
+t1 = time.perf_counter()
+fishArray = iterateFishLife(fishArray, iterationDays)
+t2 = time.perf_counter()
+print("Part 1: Total Number of Fish = ", fishArray.shape[0])
+print("Version 1 runtime :", t2-t1)
 
 fishArray = createFishArray(initialFishList)
 
-iterationDays = 256
+totFish = 0
 
-# t1 = time.perf_counter()
-# fishArray = iterateFishLife(fishArray, iterationDays)
-# t2 = time.perf_counter()
+# *** "Fast, recursive" Implementation *** 
 
-# print("Version 1 runtime :", t2-t1)
-# print("Total Number of Fish = ", fishArray.shape[0])
+t1 = time.perf_counter()
+for i in range(fishArray.shape[0]):
+    numFish = interateFishLife_recursive(fishArray[i], iterationDays)
+    totFish += numFish
+t2 = time.perf_counter()
+print("Part 1: Total Number of Fish = ", totFish)
+print("Version 2 runtime :", t2-t1)
 
-# fishArray = createFishArray(initialFishList)
+# *** Part 2 ***
 
 totFish = 0
-# t1 = time.perf_counter()
-# for i in range(fishArray.shape[0]):
-# # for i in range(1):
-#     print("Current fish is", i)
-#     numFish = interateFishLife_recursive(fishArray[i], iterationDays)
-#     print("Fish found = ", numFish)
-#     totFish += numFish
-#     # print(numFish)
-# t2 = time.perf_counter()
-# print("Version 2 runtime :", t2-t1)
 
 fishBucket = np.zeros(6,dtype=np.int64)
 
@@ -49,4 +55,4 @@ fishBucket[5] = 4368232009
 for i in range(fishArray.shape[0]):
     totFish += fishBucket[fishArray[i]]
 
-print("Number of fish = ", totFish)
+print("Part 2: Number of fish = ", totFish)
