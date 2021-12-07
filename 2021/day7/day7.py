@@ -41,7 +41,7 @@ for pos in range(maxPos+1):
         posMinFuel = 0
     totFuelSpent = 0
     for i in range(len(initialCrabPosList)):
-        totFuelSpent += sum(range(1,abs(pos - int(initialCrabPosList[i]))))
+        totFuelSpent += sum(range(1,abs(pos - int(initialCrabPosList[i]))+1))
     
     if pos == 0:
         minTotFuelSpent = totFuelSpent
