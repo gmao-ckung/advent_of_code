@@ -32,7 +32,6 @@ for pos in range(maxPos+1):
         minTotFuelSpent = 0
         posMinFuel = 0
     totFuelSpent = 0
-    totFuelSpent2 = 0
     for i in range(len(initialCrabPos)):
         totFuelSpent += sum(range(1,abs(pos - initialCrabPos[i])+1))
     
