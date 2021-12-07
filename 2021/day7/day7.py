@@ -1,28 +1,20 @@
+import numpy as np
 import os
 from support import *
 
 CURR_DIR = os.path.dirname(os.path.realpath(__file__))
 fopen = open(CURR_DIR+"/input.day7","r")
-initialCrabPosList = fopen.readlines()
+initialCrabPos = np.array(separateViaDelin(fopen.readlines()[0]),dtype=int)
 
-initialCrabPosList = separateViaDelin(initialCrabPosList[0])
-
-maxPos = 0
-for i in range(len(initialCrabPosList)):
-    if maxPos < int(initialCrabPosList[i]):
-        maxPos = int(initialCrabPosList[i])
-
+maxPos = max(initialCrabPos)
 print("max distance = ", maxPos)
-
 
 # *** Part 1: Brute Force Search ***
 for pos in range(maxPos+1):
     if pos == 0:
         minTotFuelSpent = 0
         posMinFuel = 0
-    totFuelSpent = 0
-    for i in range(len(initialCrabPosList)):
-        totFuelSpent += abs(pos - int(initialCrabPosList[i]))
+    totFuelSpent = sum(abs(pos-initialCrabPos))
     
     if pos == 0:
         minTotFuelSpent = totFuelSpent
@@ -40,8 +32,9 @@ for pos in range(maxPos+1):
         minTotFuelSpent = 0
         posMinFuel = 0
     totFuelSpent = 0
-    for i in range(len(initialCrabPosList)):
-        totFuelSpent += sum(range(1,abs(pos - int(initialCrabPosList[i]))+1))
+    totFuelSpent2 = 0
+    for i in range(len(initialCrabPos)):
+        totFuelSpent += sum(range(1,abs(pos - initialCrabPos[i])+1))
     
     if pos == 0:
         minTotFuelSpent = totFuelSpent
