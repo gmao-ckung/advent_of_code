@@ -31,25 +31,17 @@ for pos in range(maxPos+1):
             minTotFuelSpent = totFuelSpent
             posMinFuel = pos
 
-print("Minimum Fuel Spent at position", posMinFuel)
-print("Fuel Spent =", minTotFuelSpent)
-
-def fuelSpent(distance):
-    fuelUsed = 0
-    for i in range(1,distance+1):
-        fuelUsed += i
-
-    return fuelUsed
+print("Part 1 : Minimum Fuel Spent at position", posMinFuel)
+print("Part 1 : Fuel Spent =", minTotFuelSpent)
 
 # *** Part 2: Brute Force Search ***
 for pos in range(maxPos+1):
-    print("Position", pos, "of", maxPos)
     if pos == 0:
         minTotFuelSpent = 0
         posMinFuel = 0
     totFuelSpent = 0
     for i in range(len(initialCrabPosList)):
-        totFuelSpent += fuelSpent(abs(pos - int(initialCrabPosList[i])))
+        totFuelSpent += sum(range(1,abs(pos - int(initialCrabPosList[i]))))
     
     if pos == 0:
         minTotFuelSpent = totFuelSpent
@@ -58,5 +50,5 @@ for pos in range(maxPos+1):
             minTotFuelSpent = totFuelSpent
             posMinFuel = pos
 
-print("Minimum Fuel Spent at position", posMinFuel)
-print("Fuel Spent =", minTotFuelSpent)
+print("Part 2 : Minimum Fuel Spent at position", posMinFuel)
+print("Part 2 : Fuel Spent =", minTotFuelSpent)
