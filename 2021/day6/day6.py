@@ -14,7 +14,7 @@ fishArray = createFishArray(initialFishList)
 
 iterationDays = 80
 
-# *** Interative Implementation ***
+# *** Iterative Implementation ***
 t1 = time.perf_counter()
 fishArray = iterateFishLife(fishArray, iterationDays)
 t2 = time.perf_counter()
