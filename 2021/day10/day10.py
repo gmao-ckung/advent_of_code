@@ -76,3 +76,43 @@ for data in initialDataList:
 
 
 print("Part 1: Syntax Points =", syntax_points)
+
+score_list = []
+
+for data in initialDataList:
+    data = data[:-1]
+    currentStack = []
+    currentIdx = 0
+    noErrorFound, currentStack = checkSyntax(data,currentStack,currentIdx)
+
+    closure_string = []
+
+    currentStack.reverse()
+    if noErrorFound:
+        for bracket in currentStack:
+            if bracket == "(":
+                closure_string.append(")")
+            elif bracket == "[":
+                closure_string.append("]")
+            elif bracket == "{":
+                closure_string.append("}")
+            elif bracket == "<":
+                closure_string.append(">")
+
+        score = 0
+        for bracket in closure_string:
+            if bracket == ")":
+                score = score * 5 + 1
+            elif bracket == "]":
+                score = score * 5 + 2
+            elif bracket == "}":
+                score = score * 5 + 3
+            elif bracket == ">":
+                score = score * 5 + 4
+
+        score_list.append(score)
+
+score_list.sort()
+print("Part 2: Middle score =", score_list[int(len(score_list)/2)])
+
+    
