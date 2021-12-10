@@ -5,11 +5,11 @@ fopen = open(CURR_DIR+"/input.day10","r")
 initialDataList = fopen.readlines()
 
 def checkSyntax(data, currentStack, currentIdx):
+
+    open_brackets = ["(", "[", "{", "<"]
+
     while(currentIdx < len(data)):
-        if data[currentIdx] == "(" or \
-            data[currentIdx] == "[" or \
-            data[currentIdx] == "{" or \
-            data[currentIdx] == "<":
+        if data[currentIdx] in open_brackets:
             currentStack.append(data[currentIdx])
             currentIdx += 1            
 
