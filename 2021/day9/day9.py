@@ -1,6 +1,6 @@
 import numpy as np
 import os
-# from support import *
+from support import *
 
 CURR_DIR = os.path.dirname(os.path.realpath(__file__))
 fopen = open(CURR_DIR+"/input.day9","r")
@@ -74,7 +74,10 @@ for key in lowValues_dict:
 
 print("Part 1: Sum of risk levels from low points =", sum_risk)
 
+size_list = []
+
 for key in lowValues_dict:
+    
     N_count = 0
     S_count = 0
     E_count = 0
@@ -86,31 +89,80 @@ for key in lowValues_dict:
 
     i_index = lowValues_dict[key][1]
     j_index = lowValues_dict[key][2]
+    curr_value = lowValues_dict[key][0]
+
+    found_list = []
 
     if i_index == 0:
+        if heightMap[i_index+1, j_index] > curr_value and heightMap[i_index+1, j_index] != 9:
+            if [i_index+1,j_index] not in found_list:
+                found_list.append([i_index+1, j_index])
+                count_found, found_list = searchBasin(i_index+1,j_index,"E", heightMap, found_list)
+                E_count += count_found
         if j_index-1 >= 0:
-            print("Search S")
-            print("Search SE")
+            if heightMap[i_index,j_index-1] > curr_value and heightMap[i_index,j_index-1] != 9:
+                if [i_index,j_index-1] not in found_list:
+                    found_list.append([i_index,j_index-1])
+                    count_found, found_list = searchBasin(i_index,j_index-1,"S", heightMap, found_list)
+                    S_count += count_found
+        
         if j_index+1 <= heightMap.shape[1]-1:
-            print("Search N")
-            print("Search NE")
-        print("Search E")
+            if heightMap[i_index,j_index+1] > curr_value and heightMap[i_index,j_index+1] != 9:
+                if [i_index,j_index+1] not in found_list:
+                    found_list.append([i_index,j_index+1])
+                    count_found, found_list = searchBasin(i_index,j_index+1,"N", heightMap, found_list)
+                    N_count += count_found  
+        
     elif i_index == heightMap.shape[0]-1:
+        if heightMap[i_index-1,j_index] > curr_value and heightMap[i_index-1,j_index] != 9:
+            if [i_index-1,j_index] not in found_list:
+                found_list.append([i_index-1,j_index])
+                count_found, found_list = searchBasin(i_index-1,j_index,"W", heightMap, found_list)
+                W_count += count_found
+
         if j_index-1 >= 0:
-            print("Search S")
-            print("Search SW")
+            if heightMap[i_index,j_index-1] > curr_value and heightMap[i_index,j_index-1] != 9:
+                if [i_index,j_index-1] not in found_list:
+                    found_list.append([i_index,j_index-1])
+                    count_found, found_list = searchBasin(i_index,j_index-1,"S", heightMap, found_list)
+                    S_count += count_found
+                
         if j_index+1 <= heightMap.shape[1]-1:
-            print("Search N")
-            print("Search NW")
-        print("Search W")
+            if heightMap[i_index,j_index+1] > curr_value and heightMap[i_index,j_index+1] != 9:
+                if [i_index,j_index+1] not in found_list:
+                    found_list.append([i_index,j_index+1])
+                    count_found, found_list = searchBasin(i_index,j_index+1,"N", heightMap, found_list)
+                    N_count += count_found
+
     else:
+        if heightMap[i_index-1,j_index] > curr_value and heightMap[i_index-1,j_index] != 9:
+            if [i_index-1,j_index] not in found_list:
+                found_list.append([i_index-1,j_index])
+                count_found, found_list = searchBasin(i_index-1,j_index,"W", heightMap, found_list)
+                W_count += count_found
+
+        if heightMap[i_index+1,j_index] > curr_value and heightMap[i_index+1,j_index] != 9:
+            if [i_index+1,j_index] not in found_list:
+                found_list.append([i_index+1,j_index])
+                count_found, found_list = searchBasin(i_index+1,j_index,"E", heightMap, found_list)
+                E_count += count_found
+            
         if j_index - 1 >= 0:
-            print("Search S")
-            print("Search SW")
-            print("Search SE")
+            if heightMap[i_index,j_index-1] > curr_value and heightMap[i_index,j_index-1] != 9:
+                if [i_index,j_index-1] not in found_list:
+                    found_list.append([i_index,j_index-1])
+                    count_found, found_list = searchBasin(i_index,j_index-1,"S", heightMap, found_list)
+                    S_count += count_found
+                    
         if j_index + 1 <= heightMap.shape[1]-1:
-            print("Search N")
-            print("Search NW")
-            print("Search NE")
-        print("Search W")
-        print("Search E")
+            if heightMap[i_index,j_index+1] > curr_value and heightMap[i_index,j_index+1] != 9:
+                if [i_index,j_index+1] not in found_list:
+                    found_list.append([i_index,j_index+1])
+                    count_found, found_list = searchBasin(i_index,j_index+1,"N", heightMap, found_list)
+                    N_count += count_found
+
+    size_list.append(1 + N_count + NE_count + E_count + SE_count + S_count + SW_count + W_count + NW_count)
+
+size_list.sort(reverse=True)
+
+print("Part 2: Multiplication = ", size_list[0]*size_list[1]*size_list[2])
