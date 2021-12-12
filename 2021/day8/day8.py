@@ -30,7 +30,6 @@ for digit in range(len(patternDigits)):
     pattern_dict = create_init_pattern_dict(patternDigits[digit],outputDigits[digit])
 
     # Find "a" segment
-    # a_segment = 
     a_segment = [x for x in set(sorted(list(pattern_dict[7]))).difference(set(sorted(list(pattern_dict[1]))))]
     # Find "b" and "d" segments, but not know which one is which
     bd_segments = [x for x in set(sorted(list(pattern_dict[4]))).difference(set(sorted(list(pattern_dict[1]))))]

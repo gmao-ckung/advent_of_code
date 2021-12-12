@@ -5,19 +5,17 @@ CURR_DIR = os.path.dirname(os.path.realpath(__file__))
 fopen = open(CURR_DIR+"/input.day11","r")
 initialDataList = fopen.readlines()
 
-# print(initialDataList)
 octoArray = np.zeros((10,10), dtype=int)
 lineNum = 0
 for line in initialDataList:
     line = line.replace("\n","")
     octoArray[lineNum,:] = np.array(list(line))
     lineNum += 1
-# print(octoArray)
 
-numSteps = 100
+numSteps = 1000
 flashes = 0
 
-for step in range(1000):
+for step in range(numSteps):
     octoArray += 1
 
     while(np.any(octoArray >= 10)):
@@ -68,7 +66,6 @@ for step in range(1000):
     if(np.all(octoArray == 0)):
         print("Part 2: Step = ", step+1)
         break
-    # print(octoArray)
 
 print(octoArray)
 
