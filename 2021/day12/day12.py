@@ -10,7 +10,7 @@ path_Dict = {}
 
 for path in allPaths:
     path = path.replace("\n","")
-    print(path)
+    # print(path)
     connection_pair = path.split("-")
     if connection_pair[0] not in path_Dict.keys() and connection_pair[0] != "end":
         if connection_pair[1] != "start":
@@ -25,9 +25,6 @@ for path in allPaths:
     else:
         if connection_pair[0] != "start" and connection_pair[1] != "end":
             path_Dict[connection_pair[1]].append(connection_pair[0])
-
-    
-print(path_Dict)
 
 possible_paths = []
 
