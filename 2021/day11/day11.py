@@ -59,21 +59,18 @@ for step in range(1000):
         condition0 = np.where((ten_location[0]+1) < 10)
         condition1 = np.where(ten_location[1][condition0]+1 < 10)
         octoArray[ten_location[0][condition0][condition1]+1, ten_location[1][condition0][condition1]+1] += 1
-        
-        # updated_ten_location = np.where(octoArray >= 10)
 
         octoArray[ten_location] = -1000
-
     
     zero_loc = np.where(octoArray <= 0)
     flashes += zero_loc[0].shape[0]
     octoArray[zero_loc] = 0
 
     if(np.all(octoArray == 0)):
-        print("Step = ", step)
+        print("Part 2: Step = ", step+1)
         break
     # print(octoArray)
 
 print(octoArray)
 
-print("Number of flashes =", flashes)
+print("Part 1: Number of flashes =", flashes)
