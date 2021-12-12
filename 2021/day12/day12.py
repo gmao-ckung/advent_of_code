@@ -4,6 +4,17 @@ CURR_DIR = os.path.dirname(os.path.realpath(__file__))
 fopen = open(CURR_DIR+"/input.day12","r")
 allPaths = fopen.readlines()
 
+def search_path(startPt, path_Dict, currPath, possible_paths, checkKey=""):
+    for nextPt in path_Dict[startPt]:
+        if nextPt == "end":
+            if currPath+["end"] not in possible_paths:
+                possible_paths.append(currPath + ["end"])
+        elif nextPt.isupper():
+            search_path(nextPt, path_Dict, currPath+[nextPt], possible_paths, checkKey)
+        elif nextPt.islower():
+            if nextPt not in currPath or (nextPt in currPath and currPath.count(nextPt) < 2 and nextPt == checkKey):
+                search_path(nextPt, path_Dict, currPath+[nextPt], possible_paths, checkKey)
+
 path_Dict = {}
 
 for path in allPaths:
@@ -24,17 +35,6 @@ for path in allPaths:
             path_Dict[connection_pair[1]].append(connection_pair[0])
 
 possible_paths = []
-
-def search_path(startPt, path_Dict, currPath, possible_paths, checkKey=""):
-    for nextPt in path_Dict[startPt]:
-        if nextPt == "end":
-            if currPath+["end"] not in possible_paths:
-                possible_paths.append(currPath + ["end"])
-        elif nextPt.isupper():
-            search_path(nextPt, path_Dict, currPath+[nextPt], possible_paths, checkKey)
-        elif nextPt.islower():
-            if nextPt not in currPath or (nextPt in currPath and currPath.count(nextPt) < 2 and nextPt == checkKey):
-                search_path(nextPt, path_Dict, currPath+[nextPt], possible_paths, checkKey)
 
 search_path("start", path_Dict, [], possible_paths)
 
