@@ -39,7 +39,7 @@ def search_path_pt1(startPt, path_Dict, currPath, possible_paths):
         # print("nextPt =", nextPt)
         if nextPt == "end":
             possible_paths.append(currPath + ["end"])
-            print(currPath + ["end"])
+            # print(currPath + ["end"])
         elif nextPt.isupper():
             search_path_pt1(nextPt, path_Dict, currPath+[nextPt], possible_paths)
         elif nextPt.islower():
@@ -48,21 +48,21 @@ def search_path_pt1(startPt, path_Dict, currPath, possible_paths):
     # print("going back up")
 
 def search_path_pt2(startPt, path_Dict, currPath, possible_paths, checkKey):
-    print("**************")
-    print("startPt =", startPt)
-    print("currPath =", currPath)
+    # print("**************")
+    # print("startPt =", startPt)
+    # print("currPath =", currPath)
     for nextPt in path_Dict[startPt]:
-        print("nextPt =", nextPt)
+        # print("nextPt =", nextPt)
         if nextPt == "end":
             if currPath+["end"] not in possible_paths:
                 possible_paths.append(currPath + ["end"])
-                print(currPath + ["end"])
+                # print(currPath + ["end"])
         elif nextPt.isupper():
             search_path_pt2(nextPt, path_Dict, currPath+[nextPt], possible_paths, checkKey)
         elif nextPt.islower():
             if nextPt not in currPath or (nextPt in currPath and currPath.count(nextPt) < 2 and nextPt == checkKey):
                 search_path_pt2(nextPt, path_Dict, currPath+[nextPt], possible_paths, checkKey)
-    print("going back up")
+    # print("going back up")
 
 search_path_pt1("start", path_Dict, [], possible_paths)
 
