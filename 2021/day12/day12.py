@@ -44,6 +44,5 @@ possible_paths = []
 
 for currKey in path_Dict.keys():
     if currKey.islower() and currKey != "start" and currKey != "end":
-        checkKey = currKey
-        search_path("start", path_Dict, [], possible_paths, checkKey)
+        search_path("start", path_Dict, [], possible_paths, currKey)
 print("Part 2: There are", len(possible_paths), "possible paths")
