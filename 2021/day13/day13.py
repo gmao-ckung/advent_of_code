@@ -36,8 +36,6 @@ for direction in directions:
                 if int(key_coord[0]) > int(fold_location[1]):
                     new_location = str(int(key_coord[0])-2*(int(key_coord[0])-int(fold_location[1]))) + "," + key_coord[1]
                     if new_location not in folded_dot_map:
-                        # print("old location = ",dot_location)
-                        # print("new location = ", new_location)
                         folded_dot_map.append(new_location)
                 else:
                     if dot_location not in folded_dot_map:
