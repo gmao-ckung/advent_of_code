@@ -2,7 +2,7 @@ import os
 import sys
 
 CURR_DIR = os.path.dirname(os.path.realpath(__file__))
-fopen = open(CURR_DIR+"/input.test","r")
+fopen = open(CURR_DIR+"/input.day14","r")
 poly_template = fopen.readlines()
 
 start_template = list(poly_template[0].replace("\n",""))
@@ -13,74 +13,102 @@ for i in range(2,len(poly_template)):
     rule = poly_template[i].replace("\n","").split(" -> ")
     pair_insertion_rules[rule[0]] = rule[1]
 
-# print(pair_insertion_rules)
-
-# steps = 10
-# for step in range(steps):
-#     print("Step =",step)
-#     print("Start Template Length =",len(start_template))
-#     new_template = []
-#     for i in range(len(start_template)-1):
-#         new_template.append(start_template[i])
-#         new_template.append(pair_insertion_rules[start_template[i]+start_template[i+1]])
-#     new_template.append(start_template[-1])
-#     start_template = new_template
-
-# # print(start_template)
-
-# letters = "ABCDEFGHIJKLMNOPQURSTUWXYZ"
-
-# letter_count = {}
-# max_count = 0
-# min_count = len(start_template)
-# for letter in letters:
-#     if start_template.count(letter) > max_count:
-#         max_count = start_template.count(letter)
-#     if start_template.count(letter) < min_count and start_template.count(letter) != 0:
-#         min_count = start_template.count(letter)
-
-# print("Part 1 : Most Common - Least Common = ", max_count- min_count)
-
 start_template = list(poly_template[0].replace("\n",""))
 
-letters = "ABCDEFGHIJKLMNOPQURSTUWXYZ"
 letter_counter = {}
+letter_pair_counter = {}
 
-for letter in letters:
-    letter_counter[letter] = 0
-
-def recursive_count(letter1, letter2, curr_step, tot_step, pair_insertion_rules, letter_counter, count_letter=True):
-    # print("curr_step = ", curr_step)
-    if curr_step < tot_step:
-        # print("Letter 1 =", letter1)
-        # print("Letter 2 =", letter2)
-       
-        recursive_count(letter1, pair_insertion_rules[letter1+letter2],curr_step+1,tot_step,pair_insertion_rules, letter_counter, count_letter)
-        recursive_count(pair_insertion_rules[letter1+letter2], letter2, curr_step+1,tot_step,pair_insertion_rules,letter_counter, False)
+for letter in start_template:
+    if letter not in letter_counter.keys():
+        letter_counter[letter] = 1
     else:
-        # print("Letter 1 =", letter1)
-        # print("Letter 2 =", letter2)
-        if count_letter:
-            letter_counter[letter1] = +1
-        letter_counter[letter2] += 1
-        return
+        letter_counter[letter] += 1
 
-steps = 20
 for i in range(len(start_template)-1):
-    print(i, "of", len(start_template))
-    if i == 0:
-        recursive_count(start_template[i], start_template[i+1], 0, steps, pair_insertion_rules, letter_counter)
+    if start_template[i]+start_template[i+1] not in letter_pair_counter.keys():
+        letter_pair_counter[start_template[i]+start_template[i+1]] = 1
     else:
-        recursive_count(start_template[i], start_template[i+1], 0, steps, pair_insertion_rules, letter_counter, False)
+        letter_pair_counter[start_template[i]+start_template[i+1]] += 1
 
-print(letter_counter)
+steps = 10
+for i in range(steps):
+    new_letter_pair_counter = {}
+    for key in letter_pair_counter.keys():
+        added_letter = pair_insertion_rules[key]
+        if added_letter not in letter_counter.keys():
+            letter_counter[added_letter] = 1 * letter_pair_counter[key]
+        else:
+            letter_counter[added_letter] += 1 * letter_pair_counter[key]
+        pair1 = key[0]+added_letter
+        pair2 = added_letter+key[1]
+
+        if pair1 not in new_letter_pair_counter.keys():
+            new_letter_pair_counter[pair1] = 1* letter_pair_counter[key]
+        else:
+            new_letter_pair_counter[pair1] += 1* letter_pair_counter[key]
+
+        if pair2 not in new_letter_pair_counter.keys():
+            new_letter_pair_counter[pair2] = 1* letter_pair_counter[key]
+        else:
+            new_letter_pair_counter[pair2] += 1* letter_pair_counter[key]
+            
+    letter_pair_counter = new_letter_pair_counter
 
 max_count = 0
 min_count = sys.maxsize
 for letter in letter_counter.keys():
     if letter_counter[letter] > max_count:
         max_count = letter_counter[letter]
-    if letter_counter[letter] < min_count and letter_counter[letter] != 0:
+    if letter_counter[letter] < min_count:
         min_count = letter_counter[letter]
 
 print("Part 1 : Most Common - Least Common = ", max_count- min_count)
+
+letter_counter = {}
+letter_pair_counter = {}
+
+for letter in start_template:
+    if letter not in letter_counter.keys():
+        letter_counter[letter] = 1
+    else:
+        letter_counter[letter] += 1
+
+for i in range(len(start_template)-1):
+    if start_template[i]+start_template[i+1] not in letter_pair_counter.keys():
+        letter_pair_counter[start_template[i]+start_template[i+1]] = 1
+    else:
+        letter_pair_counter[start_template[i]+start_template[i+1]] += 1
+
+steps = 40
+for i in range(steps):
+    new_letter_pair_counter = {}
+    for key in letter_pair_counter.keys():
+        added_letter = pair_insertion_rules[key]
+        if added_letter not in letter_counter.keys():
+            letter_counter[added_letter] = 1 * letter_pair_counter[key]
+        else:
+            letter_counter[added_letter] += 1 * letter_pair_counter[key]
+        pair1 = key[0]+added_letter
+        pair2 = added_letter+key[1]
+
+        if pair1 not in new_letter_pair_counter.keys():
+            new_letter_pair_counter[pair1] = 1* letter_pair_counter[key]
+        else:
+            new_letter_pair_counter[pair1] += 1* letter_pair_counter[key]
+
+        if pair2 not in new_letter_pair_counter.keys():
+            new_letter_pair_counter[pair2] = 1* letter_pair_counter[key]
+        else:
+            new_letter_pair_counter[pair2] += 1* letter_pair_counter[key]
+            
+    letter_pair_counter = new_letter_pair_counter
+
+max_count = 0
+min_count = sys.maxsize
+for letter in letter_counter.keys():
+    if letter_counter[letter] > max_count:
+        max_count = letter_counter[letter]
+    if letter_counter[letter] < min_count:
+        min_count = letter_counter[letter]
+
+print("Part 2 : Most Common - Least Common = ", max_count- min_count)
