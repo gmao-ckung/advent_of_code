@@ -36,21 +36,21 @@ for i in range(steps):
     for key in letter_pair_counter.keys():
         added_letter = pair_insertion_rules[key]
         if added_letter not in letter_counter.keys():
-            letter_counter[added_letter] = 1 * letter_pair_counter[key]
+            letter_counter[added_letter] = letter_pair_counter[key]
         else:
-            letter_counter[added_letter] += 1 * letter_pair_counter[key]
+            letter_counter[added_letter] += letter_pair_counter[key]
         pair1 = key[0]+added_letter
         pair2 = added_letter+key[1]
 
         if pair1 not in new_letter_pair_counter.keys():
-            new_letter_pair_counter[pair1] = 1* letter_pair_counter[key]
+            new_letter_pair_counter[pair1] = letter_pair_counter[key]
         else:
-            new_letter_pair_counter[pair1] += 1* letter_pair_counter[key]
+            new_letter_pair_counter[pair1] += letter_pair_counter[key]
 
         if pair2 not in new_letter_pair_counter.keys():
-            new_letter_pair_counter[pair2] = 1* letter_pair_counter[key]
+            new_letter_pair_counter[pair2] = letter_pair_counter[key]
         else:
-            new_letter_pair_counter[pair2] += 1* letter_pair_counter[key]
+            new_letter_pair_counter[pair2] += letter_pair_counter[key]
             
     letter_pair_counter = new_letter_pair_counter
 
@@ -85,21 +85,21 @@ for i in range(steps):
     for key in letter_pair_counter.keys():
         added_letter = pair_insertion_rules[key]
         if added_letter not in letter_counter.keys():
-            letter_counter[added_letter] = 1 * letter_pair_counter[key]
+            letter_counter[added_letter] = letter_pair_counter[key]
         else:
-            letter_counter[added_letter] += 1 * letter_pair_counter[key]
+            letter_counter[added_letter] += letter_pair_counter[key]
         pair1 = key[0]+added_letter
         pair2 = added_letter+key[1]
 
         if pair1 not in new_letter_pair_counter.keys():
-            new_letter_pair_counter[pair1] = 1* letter_pair_counter[key]
+            new_letter_pair_counter[pair1] = letter_pair_counter[key]
         else:
-            new_letter_pair_counter[pair1] += 1* letter_pair_counter[key]
+            new_letter_pair_counter[pair1] += letter_pair_counter[key]
 
         if pair2 not in new_letter_pair_counter.keys():
-            new_letter_pair_counter[pair2] = 1* letter_pair_counter[key]
+            new_letter_pair_counter[pair2] = letter_pair_counter[key]
         else:
-            new_letter_pair_counter[pair2] += 1* letter_pair_counter[key]
+            new_letter_pair_counter[pair2] += letter_pair_counter[key]
             
     letter_pair_counter = new_letter_pair_counter
 
