@@ -25,11 +25,9 @@ def parse_packet_and_type_ID(binary_code, curr_bit):
     return packet_version, packet_ID, curr_bit 
 
 def parse_packet_ID_4(binary_code, curr_bit):
-    print("Type ID 4 Packet found!")
     bin_value = ""
     bin_value += binary_code[curr_bit+1:curr_bit+5]
 
-    # print(bin_value)
     while (binary_code[curr_bit] == '1'):
         curr_bit += 5
         bin_value += binary_code[curr_bit+1:curr_bit+5]
@@ -42,7 +40,7 @@ def parse_packet_ID_4(binary_code, curr_bit):
     return int(bin_value,base=2), curr_bit
 
 def operator_packet(binary_code, curr_bit, packet_version_sum, operators, packet_literals):
-    print("Other packet type ID found")
+    print("Operator packet type found")
     length_type = binary_code[curr_bit]
     print("Length type = ", length_type)
     if length_type == '0':
@@ -72,7 +70,6 @@ def operator_packet(binary_code, curr_bit, packet_version_sum, operators, packet
         # curr_bit += total_len_subpackets
 
     elif length_type == '1':
-        print("New type")
         curr_bit += 1
         number_of_11_len_subpackets = int(binary_code[curr_bit:curr_bit+11], base=2)
         print("Number of 11 bit subpackets = ", number_of_11_len_subpackets)
@@ -126,15 +123,7 @@ def operator_packet(binary_code, curr_bit, packet_version_sum, operators, packet
 for hex_code in hex_codes:
     hex_code = hex_code.replace("\n", "")
     print("Hex Code = ", hex_code)
-    # bin_code = str(bin(int(hex_code, base=16)))[2:]
     bin_code = generate_binary_code(hex_code)
-    # if len(bin_code)%4 != 0:
-    #     if len(bin_code)%4 == 1:
-    #         bin_code = "000"+bin_code
-    #     elif len(bin_code)%4 == 2:
-    #         bin_code = "00"+bin_code
-    #     elif len(bin_code)%4 == 3:
-    #         bin_code = "0"+bin_code
 
     curr_bit = 0
     operators = []
