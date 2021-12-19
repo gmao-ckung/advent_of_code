@@ -89,7 +89,7 @@ for i in range(x_min,x_max+1):
 # x_max
 
 # For negative Y velocities, for those velocities which cannot be reached in 1 step, we can start at y_min and go to 0
-# and work our way backwards to find x. Also note that x velocities can basically go from steps_min to x_max/2 for this search
+# and work our way backwards to find x. Also note that x velocities can basically go from 0 to x_max/2+1 for this search
 
 
 for y_vel in range(y_min,0):
@@ -134,12 +134,7 @@ for y_vel in range(y_min,0):
                     possible_starting_vel.append([x_vel,y_vel])
                     print("Possible velocity = [",x_vel,",",y_vel,"]")
 
-# The next range of x velocities to search range from steps_min to x_min-1
-
-# There are certain x velocities that will not displace after a certain number of steps, but
-# we need to make sure to establish the minimum numbe of steps at least to get into the x range
-
-# steps_min and steps_max establish ranges where the x_displacement will stop
+# This basically does a brute search of the positive y velocities that will hit and searches possible range of x velocities to match them
 
 yet_to_find = True
 break_count = 0
