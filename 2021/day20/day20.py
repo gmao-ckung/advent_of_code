@@ -1,7 +1,7 @@
 import os
 
 CURR_DIR = os.path.dirname(os.path.realpath(__file__))
-fopen = open(CURR_DIR+"/input.test","r")
+fopen = open(CURR_DIR+"/input.day20","r")
 image_data = fopen.readlines()
 
 image_algorithm = image_data[0].replace("\n","")
@@ -19,6 +19,13 @@ for i in range(2, len(image_data)):
                 image_dict[str(i)+","+str(y_index)] = 1
 
 print(image_dict)
+
+x_min = 0
+x_max = len(image_line)
+
+y_min = 0
+y_max = len(image_data) - 2
+
 
 for steps in range(num_image_enhancements):
 
@@ -98,6 +105,26 @@ for steps in range(num_image_enhancements):
             new_image_dict[key_SE] = 256
         else:
             new_image_dict[key_SE] += 256
+
+    if image_algorithm[0] == "#":
+        print("DAMN IT")
+        # Search along "border" for potential "zero" grids
+        # North Border Search
+        init_x = x_min
+        while(init_x <= x_max-3):
+            key_L = str(init_x)+",0"
+            key_M = str(init_x+1) +",0"
+            key_R = str(init_x+2)+",0"
+
+            if key_L not in image_dict.keys() and key_M not in image_dict.keys() and key_R not in image_dict.keys():
+                zero_grid_key = str(init_x+1)+","+str(y_min-1)
+                if zero_grid_key not in new_image_dict.keys():
+                    new_image_dict[zero_grid_key] = 0
+                    print(zero_grid_key)
+            init_x += 1
+
+        print("STOP")
+        # It looks like I can search along the border for "missing" entries in new_image_dict that can be dictated to be 0
 
     image_dict = {}
     for key in new_image_dict.keys():
