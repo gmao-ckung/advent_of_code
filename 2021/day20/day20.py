@@ -110,21 +110,89 @@ for steps in range(num_image_enhancements):
         print("DAMN IT")
         # Search along "border" for potential "zero" grids
         # North Border Search
-        init_x = x_min
-        while(init_x <= x_max-3):
-            key_L = str(init_x)+",0"
-            key_M = str(init_x+1) +",0"
-            key_R = str(init_x+2)+",0"
+        y_min_index = y_min - 1
+        for x_index in range(x_min,x_max):
+            search_key = str(x_index)+","+str(y_min_index)
+            if search_key not in new_image_dict.keys():
+                # print(search_key, "is a 0 spot")
+                new_image_dict[search_key] = 0
 
-            if key_L not in image_dict.keys() and key_M not in image_dict.keys() and key_R not in image_dict.keys():
-                zero_grid_key = str(init_x+1)+","+str(y_min-1)
-                if zero_grid_key not in new_image_dict.keys():
-                    new_image_dict[zero_grid_key] = 0
-                    print(zero_grid_key)
-            init_x += 1
+        # West Border Search
+        x_min_index = x_min - 1
+        for y_index in range(y_min,y_max):
+            search_key = str(x_min_index)+","+str(y_index)
+            if search_key not in new_image_dict.keys():
+                # print(search_key, "is a 0 spot")
+                new_image_dict[search_key] = 0
 
-        print("STOP")
-        # It looks like I can search along the border for "missing" entries in new_image_dict that can be dictated to be 0
+        # East Border Search
+        x_max_index = x_max
+        for y_index in range(y_min,y_max):
+            search_key = str(x_max_index)+","+str(y_index)
+            if search_key not in new_image_dict.keys():
+                # print(search_key, "is a 0 spot")
+                new_image_dict[search_key] = 0
+
+        # South Border Search
+        y_max_index = y_max
+        for x_index in range(x_min,x_max):
+            search_key = str(x_index)+","+str(y_max_index)
+            if search_key not in new_image_dict.keys():
+                # print(search_key, "is a 0 spot")
+                new_image_dict[search_key] = 0
+
+        # Check Corners for potential 0's
+        #NW Corner
+        if str(x_min-1)+","+str(y_min-1) not in new_image_dict.keys():
+            new_image_dict[str(x_min-1)+","+str(y_min-1)] = 0
+
+        #NE Corner
+        if str(x_max)+","+str(y_min-1) not in new_image_dict.keys():
+            new_image_dict[str(x_max)+","+str(y_min-1)] = 0
+
+        #SW Corner
+        if str(x_min-1)+","+str(y_max) not in new_image_dict.keys():
+            new_image_dict[str(x_min-1)+","+str(y_max)] = 0
+
+        #SE Corner
+        if str(x_max)+","+str(y_max) not in new_image_dict.keys():
+            new_image_dict[str(x_max)+","+str(y_max)] = 0
+
+        # Search within image for potential zero grids
+        # This basically happens if a key does not exist
+        for y_index in range(y_max):
+            for x_index in range(x_max):
+                search_key = str(x_index)+","+str(y_index)
+                if search_key not in new_image_dict.keys():
+                    # print(search_key, "is a 0 spot")
+                    new_image_dict[search_key] = 0
+
+        # This is VERY specific to this problem
+        # If the "steps" variable is even, this means that the "infinite" area is switching on
+        # To help with this code, append an extra layer of "on" pixels around the "image area"
+
+        x_min -= 2
+        x_max += 2
+        y_min -= 2
+        y_max += 2
+
+        
+        for y_index in range(y_min,y_max):
+            # West Border
+            new_image_dict[str(x_min)+","+str(y_index)] = 0
+            # East Border
+            new_image_dict[str(x_max)+","+str(y_index)] = 0
+        
+        for x_index in range(x_min,x_max):
+            #North Border
+            new_image_dict[str(x_index)+","+str(y_min)] = 0
+            # South Border
+            new_image_dict[str(x_index)+","+str(y_max)] = 0
+        
+
+        print("blah")
+
+        # Append an extra 
 
     image_dict = {}
     for key in new_image_dict.keys():
