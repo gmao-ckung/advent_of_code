@@ -7,7 +7,7 @@ image_data = fopen.readlines()
 image_algorithm = image_data[0].replace("\n","")
 # print(image_algorithm)
 
-num_image_enhancements = 2
+num_image_enhancements = 50
 
 image_dict = {}
 for i in range(2, len(image_data)):
