@@ -7,6 +7,8 @@ start_positions = fopen.readlines()
 player_1_pos = int(start_positions[0].split(" ")[-1].replace("\n", ""))
 player_2_pos = int(start_positions[1].split(" ")[-1].replace("\n", ""))
 
+# *** Part 1 ***
+
 player_1_score = 0
 player_2_score = 0
 
@@ -56,3 +58,5 @@ while True:
         print("Player 2 wins with score of", player_2_score)
         print("Weird calculation =", player_1_score*num_die_rolls)
         break
+
+# *** Part 2 ***
