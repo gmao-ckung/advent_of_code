@@ -1,7 +1,7 @@
 import os
 
 CURR_DIR = os.path.dirname(os.path.realpath(__file__))
-fopen = open(CURR_DIR+"/input.test","r")
+fopen = open(CURR_DIR+"/input.day20","r")
 image_data = fopen.readlines()
 
 image_algorithm = image_data[0].replace("\n","")
@@ -18,7 +18,7 @@ for i in range(2, len(image_data)):
             if str(i)+","+str(y_index) not in image_dict.keys():
                 image_dict[str(i)+","+str(y_index)] = 1
 
-print(image_dict)
+# print(image_dict)
 
 x_min = 0
 x_max = len(image_line)
@@ -42,7 +42,7 @@ def pixel_light_search(new_image_dict, index_x, index_y,
     key_N  = str(index_x)+","+str(index_y-1)
     key_NE = str(index_x+1)+","+str(index_y-1)
     key_W  = str(index_x-1)+","+str(index_y)
-    key_C  = key
+    key_C  = str(index_x)+","+str(index_y)
     key_E  = str(index_x+1)+","+str(index_y)
     key_SW = str(index_x-1)+","+str(index_y+1)
     key_S  = str(index_x)+","+str(index_y+1)
@@ -126,7 +126,6 @@ for steps in range(num_image_enhancements):
                             key_SE_flag=True)
 
     if image_algorithm[0] == "#":
-        print("DAMN IT")
         # Search along first "border" outside of the image for potential "zero" grids when steps is even since the "infinite" area
         # around the image will be zeros
         if steps%2 == 0:
@@ -185,11 +184,11 @@ for steps in range(num_image_enhancements):
                 for x_index in range(x_min,x_max):
                     search_key = str(x_index)+","+str(y_index)
                     if search_key not in new_image_dict.keys():
-                        print(search_key, "is a 0 spot")
+                        # print(search_key, "is a 0 spot")
                         new_image_dict[search_key] = 0
 
         if steps%2 == 1:
-            print("Odd steps require a border of 1's to influence the inside of the image area")
+            # print("Odd steps require a border of 1's to influence the inside of the image area")
 
             # Project lit pixels from infinite region into the image region
             # North Border of 1's
