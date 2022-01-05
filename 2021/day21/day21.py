@@ -1,5 +1,4 @@
 import os
-import numpy as np
 
 CURR_DIR = os.path.dirname(os.path.realpath(__file__))
 fopen = open(CURR_DIR+"/input.test","r")
@@ -155,20 +154,63 @@ player_2_score = 0
 
 # player_1_win_cnt, player_2_win_cnt = score_player_1(possible_roll_results, player_1_pos, player_1_score, player_1_win_cnt, player_2_pos, player_2_score, player_2_win_cnt, 1)
 
-player_1_pos_list = [player_1_pos] * 7
-player_1_score_list = [0] * 7
-player_2_pos_list = [player_2_pos] * 7
-player_2_score_list = [0] * 7
+player_1_curr_pos_dict = {player_1_pos : 1} 
+player_2_curr_pos_dict = {player_2_pos : 1}
+player_1_score_dict = {0 : 1}
+player_2_score_dict = {0 : 1}
 scale_factor_const = [1, 3, 6, 7, 6, 3, 1]
-scale_factor_list = [1] * 7
 while True:
-    for i in range(len(possible_roll_results)):
-        player_1_pos_list[i] += possible_roll_results[i]
-        player_1_pos_list[i] = check_pos(player_1_pos_list[i],10)
-        player_1_score_list[i] += player_1_pos_list[i]
-        if player_1_score_list[i] >= 21:
-            
-    print(player_1_score_list)
+    player_1_next_position_dict = {}
+    player_1_next_score_dict = {}
+    for p1_pos_key in player_1_curr_pos_dict.keys():
+        for i in range(len(possible_roll_results)):
+            print("P1 Current Position", p1_pos_key, "occurs", player_1_curr_pos_dict[p1_pos_key], "times")
+            print("Rolled a", possible_roll_results[i])
+            new_position = p1_pos_key + possible_roll_results[i]
+            new_position = check_pos(new_position,10)
+            if new_position not in player_1_next_position_dict.keys():
+                player_1_next_position_dict[new_position] = scale_factor_const[i] * player_1_curr_pos_dict[p1_pos_key]
+            else:
+                player_1_next_position_dict[new_position] *= scale_factor_const[i] * player_1_curr_pos_dict[p1_pos_key]
+            print("P1 New Position at", new_position, "occurs", player_1_next_position_dict[new_position], "times")
+            for p1_score_key in player_1_score_dict.keys():
+                if p1_score_key + new_position >= 21:
+                    player_1_win_cnt += player_1_next_position_dict[new_position] * player_1_score_dict[p1_score_key]
+                else:
+                    if p1_score_key + new_position not in player_1_next_score_dict.keys():
+                        player_1_next_score_dict[p1_score_key + new_position] = player_1_next_position_dict[new_position] * player_1_score_dict[p1_score_key]
+                    else: 
+                        player_1_next_score_dict[p1_score_key + new_position] *= player_1_next_position_dict[new_position] * player_1_score_dict[p1_score_key]
+    
+    player_1_score_dict = player_1_next_score_dict
+    player_1_curr_pos_dict = player_1_next_position_dict
+
+    print(player_1_score_dict)
+
+    player_2_next_position_dict = {}
+    player_2_next_score_dict = {}
+    for p2_pos_key in player_2_curr_pos_dict.keys():
+        for i in range(len(possible_roll_results)):
+            print("P2 Current Position", p2_pos_key, "occurs", player_2_curr_pos_dict[p2_pos_key], "times")
+            print("Rolled a", possible_roll_results[i])
+            new_position = p2_pos_key + possible_roll_results[i]
+            new_position = check_pos(new_position,10)
+            if new_position not in player_2_next_position_dict.keys():
+                player_2_next_position_dict[new_position] = scale_factor_const[i] * player_2_curr_pos_dict[p2_pos_key]
+            else:
+                player_2_next_position_dict[new_position] *= scale_factor_const[i] * player_2_curr_pos_dict[p2_pos_key]
+            print("P2 New Position at", new_position, "occurs", player_2_next_position_dict[new_position], "times")
+            for p2_score_key in player_2_score_dict.keys():
+                if p1_score_key + new_position >= 21:
+                    player_2_win_cnt += player_2_next_position_dict[new_position] * player_2_score_dict[p1_score_key]
+                else:
+                    if p1_score_key + new_position not in player_2_next_score_dict.keys():
+                        player_2_next_score_dict[p1_score_key + new_position] = player_2_next_position_dict[new_position] * player_2_score_dict[p1_score_key]
+                    else: 
+                        player_2_next_score_dict[p1_score_key + new_position] *= player_2_next_position_dict[new_position] * player_2_score_dict[p1_score_key]
+    
+    player_2_score_dict = player_2_next_score_dict
+    player_2_curr_pos_dict = player_2_next_position_dict
 
 print("Player 1 Win Count = ", player_1_win_cnt)
 print("Player 2 Win Count = ", player_2_win_cnt)
