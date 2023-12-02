@@ -57,10 +57,10 @@ for game in games:
         # Isolate number and color within each subgroup and determine
         # whether more of a particular color should be added to the bag
         for num_and_color in color_grouping:
-            number = num_and_color.split(" ")[0]
+            number = int(num_and_color.split(" ")[0])
             color = num_and_color.split(" ")[1]
-            if bag_contains[color] < int(number):
-                bag_contains[color] = int(number)
+            if bag_contains[color] < number:
+                bag_contains[color] = number
     
     # Calculate power of each game
     power = 1
