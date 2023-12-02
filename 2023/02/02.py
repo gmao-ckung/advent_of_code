@@ -7,10 +7,8 @@ file = open(CURR_DIR+"/input.in","r")
 # Read lines within input file and remove new line character at the line's end
 games = file.read().splitlines()
 
-bag_contains = {'red': 12, 'green': 13, 'blue': 14}
-
 # *** Part 1 ***
-
+bag_contains = {'red': 12, 'green': 13, 'blue': 14}
 idSum = 0
 for game in games:
     # print(game)
@@ -42,6 +40,8 @@ for game in games:
         idSum += int(game_number)
 
 print("Part 1 : Sum of IDs = ", idSum)
+
+# *** Part 2 ***
 
 power_sum = 0
 
