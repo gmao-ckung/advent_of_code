@@ -107,4 +107,4 @@ for symbol in symbol_location.keys():
             sum_part2 += neighboring_parts[0] * neighboring_parts[1]
 
 print("Part 1: Sum of parts = ", sum_part1)
-print('Sum of gear ratios = ', sum_part2)
+print('Part 2: Sum of gear ratios = ', sum_part2)
