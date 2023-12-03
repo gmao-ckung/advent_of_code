@@ -10,6 +10,7 @@ engine_schematic_file = file.read().splitlines()
 number_location = {}
 symbol_location = {}
 
+# Create data structure containing coordinate locations of numbers and symbols
 row = 0
 for line in engine_schematic_file:
     number = ""
@@ -53,6 +54,8 @@ for line in engine_schematic_file:
 sum_part1 = 0
 sum_part2 = 0
 
+# Brute force search through all symbol locations and comparing to locations of all numbers
+# to determine whether symbols and numbers are neighbors
 for symbol in symbol_location.keys():
     # print(symbol)
     for symbol_coord in symbol_location[symbol]:
