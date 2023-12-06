@@ -63,7 +63,7 @@ actual_time = int(actual_time)
 optimal_hold_time = int(actual_time/2)
 combinations = 0
 
-# Faster way to solve is to find the roots based on the actual distance
+# Faster way to solve is to find the roots (times) based on the actual distance
 # (actual_time - hold_time)*hold_time = actual_distance
 # 0 = hold_time^2 - hold_time*actual_time + actual_distance
 # Quadratic Formula 
