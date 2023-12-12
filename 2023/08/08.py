@@ -38,18 +38,12 @@ for node in node_mapping:
 steps = []
 for i in range(len(current_nodes)):
     curr_steps = 0
-    solution = ''
-    while(solution != 'Z'):
-        solution = ''
-        
-        next_node = node_mapping[current_nodes[i]][pattern[curr_steps%len(pattern)]]
-        current_nodes[i] = next_node
-
-        solution += current_nodes[i][2]
-
+    third_letter = ''
+    while(third_letter != 'Z'):
+        current_nodes[i] = node_mapping[current_nodes[i]][pattern[curr_steps%len(pattern)]]
+        third_letter = current_nodes[i][2]
         # print(solution)
         curr_steps += 1
-
     steps.append(curr_steps)
 
 print(f"Part 2 : Steps = {math.lcm(*steps)}")
