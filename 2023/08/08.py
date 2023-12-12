@@ -42,7 +42,7 @@ for i in range(len(current_nodes)):
     while(third_letter != 'Z'):
         current_nodes[i] = node_mapping[current_nodes[i]][pattern[curr_steps%len(pattern)]]
         third_letter = current_nodes[i][2]
-        # print(solution)
+        # print(third_letter)
         curr_steps += 1
     steps.append(curr_steps)
 
