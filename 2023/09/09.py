@@ -35,7 +35,7 @@ def diff_history_2(history):
         next_history = diff_history_2(new_history)
 
     new_history.insert(0,-next_history[0] + new_history[0])
-    print(new_history)
+    # print(new_history)
     return new_history
 
 curr_sum = 0
@@ -61,12 +61,12 @@ for curr_history in history:
     for i in range(len(curr_history)):
         curr_history[i] = int(curr_history[i])
 
-    print(curr_history)
+    # print(curr_history)
 
     next_history = diff_history_2(curr_history)
 
     curr_history.insert(0,-next_history[0] + curr_history[0])
-    print(curr_history)
+    # print(curr_history)
 
     curr_sum += curr_history[0]
 
