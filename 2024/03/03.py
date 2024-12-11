@@ -1,5 +1,4 @@
 import os
-import numpy as np
 
 # Read input file from current directory
 CURR_DIR = os.path.dirname(os.path.realpath(__file__))
