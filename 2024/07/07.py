@@ -6,6 +6,15 @@ file = open(CURR_DIR+"/in.07","r")
 
 equations = file.read().splitlines()
 
+def integer_to_binary_list(n, num_digits):
+    # Convert integer to binary string
+    binary_str = bin(n)[2:]
+    # Pad the binary string with leading zeros to ensure it has num_digits length
+    binary_str = binary_str.zfill(num_digits)
+    # Convert binary string to list of digits
+    binary_list = [int(digit) for digit in binary_str]
+    return binary_list
+
 total_sum = 0
 
 for equation in equations:
@@ -17,38 +26,21 @@ for equation in equations:
 
     curr_value = value
 
-    if '1' not in factors:
-        for i in range(len(factors)-1, 0, -1):
-            factor = int(factors[i])
-
-            if value % factor == 0:
-                value = value / factor
+    for combination in range(2**len(factors)):
+        computation = 0
+        binary_operators = integer_to_binary_list(combination,len(factors)-1)
+        for i in range(len(factors)):
+            if i == 0:
+                computation = int(factors[i])
             else:
-                value = value - factor
-
-        if(value == int(factors[0])):
-            print('curr_value is value')
-            total_sum += curr_value
-
-    else:
-        one_count = factors.count('1')
-        if one_count > 1:
-            print()
-        for sub_one in range(one_count+1):
-            value = curr_value - sub_one
-            print("trying value ", value)
-            for i in range(len(factors)-1, 0, -1):
-                factor = int(factors[i])
-
-                if value % factor == 0:
-                    value = value / factor
+                operator = binary_operators[i-1]
+                if operator == 0:
+                    computation += int(factors[i])
                 else:
-                    value = value - factor
-            if(value == int(factors[0])):
-                total_sum += curr_value
-                print('curr_value is', curr_value,' : sub_one = ', sub_one)
-                break
-
-
+                    computation *= int(factors[i])
+            
+        if computation == value:
+            total_sum += value
+            break
 
 print("Part 1 : Total calibration result = ", total_sum)
